@@ -5,25 +5,30 @@ import {
 	getUsers,
 	updateUser,
 } from "../controller/users.controller.js";
-import { verifyToken } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
 const usersRoute = express.Router();
 
-usersRoute.get("/checkauthentication", verifyToken, (req, res, next) => {
-	res.send("Hello user, you are logged in!");
-	// next();
-});
+// usersRoute.get("/checkauthentication", verifyToken, (req, res) => {
+// 	res.send("Hello user, you are logged in!");
+// });
+// usersRoute.get("/checkuser/:id",verifyToken, verifyUser, (req, res) => {
+// 	res.send("Hello user, you are logged in and you can delete your account!");
+// });
+// usersRoute.get("/checkadmin/:id", verifyToken, verifyAdmin, (req, res) => {
+// 	res.send("Hello admin, you are logged in and you can delete all accounts!");
+// });
 
 // UPDATE
-usersRoute.put("/:id", updateUser);
+usersRoute.put("/:id", verifyToken, verifyUser, updateUser);
 
 // DELETE
-usersRoute.delete("/:id", deleteUser);
+usersRoute.delete("/:id", verifyToken, verifyUser, deleteUser);
 
 // GET
-usersRoute.get("/:id", getUser);
+usersRoute.get("/:id", verifyToken, verifyUser, getUser);
 
 // GET ALL
-usersRoute.get("/", getUsers);
+usersRoute.get("/", verifyToken, verifyAdmin, getUsers);
 
 export default usersRoute;

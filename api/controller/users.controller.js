@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
 	try {
 		const updateUser = await User.findByIdAndUpdate(
 			req.params.id,
@@ -15,7 +15,7 @@ export const updateUser = async (req, res) => {
 	}
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
 	try {
 		const deleteUser = await User.findByIdAndDelete(req.params.id);
 		res.status(201).json(deleteUser);
@@ -24,7 +24,7 @@ export const deleteUser = async (req, res) => {
 	}
 };
 
-export const getUser = async (req, res) => {
+export const getUser = async (req, res, next) => {
 	try {
 		const user = await User.findById(req.params.id);
 		res.status(201).json(user);
