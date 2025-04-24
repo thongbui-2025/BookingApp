@@ -12,7 +12,7 @@ const HotelSchema = new Schema(
 		title: { type: String, required: true },
 		desc: { type: String, required: true },
 		rating: { type: Number, min: 0, max: 5 },
-		rooms: { type: [String], required: true },
+		rooms: { type: [String] },
 		cheapestPrice: { type: Number, required: true },
 		featured: { type: Boolean, default: false },
 	},
